@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Solve - AI Test Fixing, Reimagined</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <title>Nova Solve</title>
     <style>
         * {
             margin: 0;
@@ -12,33 +11,28 @@
             box-sizing: border-box;
         }
         
-        :root {
-            --nova-primary: #6366f1;
-            --nova-secondary: #8b5cf6;
-            --nova-accent: #ec4899;
-            --nova-dark: #0f0f23;
-            --nova-darker: #050510;
-            --nova-light: #e0e7ff;
-            --nova-glow: #818cf8;
-        }
-        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--nova-darker);
-            color: #ffffff;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Cosmic background */
+        /* Cosmos */
         .cosmos {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            z-index: -1;
+            z-index: 0;
         }
 
         .star {
@@ -49,701 +43,216 @@
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1); }
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.8; }
         }
 
         .nebula {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 600px;
+            height: 600px;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
+            filter: blur(80px);
+            opacity: 0.15;
         }
 
         .nebula1 {
-            background: radial-gradient(circle, var(--nova-primary), transparent);
-            top: -200px;
-            right: -200px;
+            background: radial-gradient(circle, #4338ca, transparent);
+            top: -300px;
+            right: -300px;
+            animation: drift 30s infinite ease-in-out;
         }
 
         .nebula2 {
-            background: radial-gradient(circle, var(--nova-secondary), transparent);
-            bottom: -200px;
-            left: -200px;
-            animation-delay: -10s;
+            background: radial-gradient(circle, #7c3aed, transparent);
+            bottom: -300px;
+            left: -300px;
+            animation: drift 30s infinite ease-in-out reverse;
         }
 
-        .nebula3 {
-            background: radial-gradient(circle, var(--nova-accent), transparent);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: -5s;
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 40px;
-            backdrop-filter: blur(10px);
-            background: rgba(15, 15, 35, 0.7);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            padding: 15px 40px;
-            background: rgba(15, 15, 35, 0.95);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-nav {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--nova-primary), var(--nova-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--nova-light);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px 40px;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 1000px;
+        /* Content */
+        .container {
             text-align: center;
             z-index: 1;
+            max-width: 800px;
+            padding: 40px;
         }
 
-        .nova-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            position: relative;
-            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
-            transition: transform 0.3s ease;
-        }
-
-        .nova-icon:hover {
-            transform: scale(1.05);
-        }
-
-        .nova-icon img {
-            width: 100%;
-            height: 100%;
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
         }
 
         h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 900;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, var(--nova-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
 
         .tagline {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-size: 20px;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             font-weight: 400;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        .btn {
-            padding: 16px 32px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--nova-primary), var(--nova-secondary));
-            color: white;
-            box-shadow: 0 4px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 35px rgba(99, 102, 241, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* Terminal Demo */
-        .terminal-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .terminal {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .terminal-header {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .dot-red { background: #ff5f57; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #28ca42; }
-
-        .terminal-body {
-            padding: 20px;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            min-height: 200px;
-        }
-
-        .terminal-line {
-            margin: 8px 0;
             opacity: 0;
-            animation: fadeInUp 0.5s forwards;
-        }
-
-        .terminal-line:nth-child(1) { animation-delay: 0.1s; }
-        .terminal-line:nth-child(2) { animation-delay: 0.3s; }
-        .terminal-line:nth-child(3) { animation-delay: 0.5s; }
-        .terminal-line:nth-child(4) { animation-delay: 0.7s; }
-        .terminal-line:nth-child(5) { animation-delay: 0.9s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-        }
-
-        .prompt { color: #50fa7b; }
-        .command { color: #f8f8f2; }
-        .output { color: #8be9fd; }
-        .success { color: #50fa7b; }
-        .error { color: #ff5555; }
-
-        /* Features Section */
-        .features {
-            padding: 100px 20px;
-            background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.05), transparent);
-        }
-
-        .features-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--nova-primary), var(--nova-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 60px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 40px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--nova-primary), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-
-        .feature-card:hover::before {
-            transform: translateX(100%);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--nova-primary), var(--nova-secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .feature-description {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        /* Install Section */
-        .install {
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .install-box {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 40px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
+            animation: fadeIn 1s 0.2s forwards;
         }
 
         .install-command {
-            background: #000;
-            color: #50fa7b;
-            padding: 20px 30px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 24px 40px;
             font-family: 'SF Mono', Monaco, monospace;
-            font-size: 1.2rem;
-            margin: 20px 0;
+            font-size: 20px;
             display: inline-block;
-            user-select: all;
             cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: all;
+            opacity: 0;
+            animation: fadeIn 1s 0.4s forwards;
+            backdrop-filter: blur(10px);
             position: relative;
-            transition: all 0.3s ease;
         }
 
         .install-command:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 20px rgba(80, 250, 123, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
         }
 
-        .install-command::after {
-            content: '📋 Click to copy';
+        .install-command:active {
+            transform: translateY(0);
+        }
+
+        .copied {
             position: absolute;
-            top: -30px;
-            right: 10px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
-        .install-command:hover::after {
+        .copied.show {
             opacity: 1;
         }
 
-        /* Footer */
-        footer {
-            padding: 60px 20px 40px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--nova-light);
-        }
-
-        .made-with {
+        .hint {
+            margin-top: 24px;
+            font-size: 14px;
             color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeIn 1s 0.6s forwards;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 20px;
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
             }
         }
 
-        /* Animations */
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Minimal footer */
+        footer {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            z-index: 1;
         }
 
-        .gradient-text {
-            background: linear-gradient(270deg, var(--nova-primary), var(--nova-secondary), var(--nova-accent));
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient 3s ease infinite;
+        footer a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 36px;
+            }
+            .tagline {
+                font-size: 18px;
+            }
+            .install-command {
+                font-size: 16px;
+                padding: 20px 24px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Cosmic Background -->
+    <!-- Cosmos background -->
     <div class="cosmos">
         <div class="nebula nebula1"></div>
         <div class="nebula nebula2"></div>
-        <div class="nebula nebula3"></div>
     </div>
 
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="logo-nav">
-                <img src="logo.svg" alt="Nova Solve" style="width: 24px; height: 24px; filter: invert(1);">
-                <span>Nova Solve</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#install">Install</a></li>
-                <li><a href="https://github.com/novasolve/nova">GitHub</a></li>
-                <li><a href="https://github.com/novasolve/nova#readme">Docs</a></li>
-            </ul>
+    <!-- Main content -->
+    <div class="container">
+        <img src="logo.svg" alt="Nova Solve" class="logo" style="filter: invert(1);">
+        
+        <h1>Nova Solve</h1>
+        <p class="tagline">AI-powered test fixing for Python</p>
+        
+        <div class="install-command" onclick="copyCommand()">
+            brew install novasolve/novasolve/nova
+            <div class="copied" id="copied">Copied</div>
         </div>
-    </nav>
+        
+        <p class="hint">Click to copy</p>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-                    <div class="nova-icon">
-            <img src="logo.svg" alt="Nova Solve" style="width: 100%; height: 100%; filter: invert(1);">
-        </div>
-            
-            <h1>Test Fixing.<br><span class="gradient-text">Reimagined.</span></h1>
-            <p class="tagline">AI-powered Python test repair that actually works.</p>
-            
-            <div class="hero-cta">
-                <a href="#install" class="btn btn-primary">
-                    <span>Get Started</span>
-                    <span>→</span>
-                </a>
-                <a href="https://github.com/novasolve/nova" class="btn btn-secondary">
-                    <span>View Source</span>
-                    <span>⭐</span>
-                </a>
-            </div>
-
-            <!-- Terminal Demo -->
-            <div class="terminal-container">
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-dot dot-red"></div>
-                        <div class="terminal-dot dot-yellow"></div>
-                        <div class="terminal-dot dot-green"></div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">
-                            <span class="prompt">$</span>
-                            <span class="command"> nova solve test_calculator.py</span>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="output">🔍 Analyzing failing test...</span>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="output">🧠 Generating fix with AI...</span>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="output">✨ Applying patch...</span>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="success">✅ Test fixed! All tests passing.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="features-container">
-            <h2 class="section-title">Superpowers for Your Tests</h2>
-            <p class="section-subtitle">Nova Solve brings AI magic to your development workflow</p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Smart Detection</h3>
-                    <p class="feature-description">
-                        Automatically identifies failing tests, analyzes stack traces, and understands the root cause of failures with precision.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3 class="feature-title">AI-Powered Fixes</h3>
-                    <p class="feature-description">
-                        Leverages cutting-edge language models to generate surgical patches that fix your tests without breaking existing functionality.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3 class="feature-title">Lightning Fast</h3>
-                    <p class="feature-description">
-                        Get from failing test to green checkmark in seconds. Nova Solve works faster than you can brew your coffee.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3 class="feature-title">Safe & Reliable</h3>
-                    <p class="feature-description">
-                        Every fix is validated against your entire test suite. Nova ensures no regressions sneak into your codebase.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3 class="feature-title">Zero Config</h3>
-                    <p class="feature-description">
-                        Works out of the box with pytest, unittest, and more. No complex setup or configuration required.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🌟</div>
-                    <h3 class="feature-title">Open Source</h3>
-                    <p class="feature-description">
-                        Built with love by developers, for developers. Contribute, customize, and make it your own.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Install Section -->
-    <section class="install" id="install">
-        <div class="install-box">
-            <h2 class="section-title">Ready to Transform Your Testing?</h2>
-            <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 30px;">
-                Install Nova Solve with a single command
-            </p>
-            <div class="install-command" onclick="copyCommand()">brew install novasolve/novasolve/nova</div>
-            <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem;">
-                Requires macOS with Homebrew • Python 3.8+
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/novasolve/nova">GitHub</a>
-                <a href="https://github.com/novasolve/nova#readme">Documentation</a>
-                <a href="https://github.com/novasolve/nova/issues">Issues</a>
-                <a href="https://twitter.com/novasolve">Twitter</a>
-            </div>
-            <p class="made-with">
-                Made with ❤️ and AI by the Nova team
-            </p>
-        </div>
+        <a href="https://github.com/novasolve/nova">Documentation</a>
     </footer>
 
     <script>
         // Generate stars
         const cosmos = document.querySelector('.cosmos');
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 150; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             star.style.left = `${Math.random() * 100}%`;
             star.style.top = `${Math.random() * 100}%`;
-            star.style.width = `${Math.random() * 3}px`;
-            star.style.height = star.style.width;
+            star.style.width = star.style.height = `${Math.random() * 2 + 0.5}px`;
             star.style.animationDelay = `${Math.random() * 3}s`;
             star.style.animationDuration = `${3 + Math.random() * 2}s`;
             cosmos.appendChild(star);
         }
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
         // Copy command
         function copyCommand() {
             const command = 'brew install novasolve/novasolve/nova';
             navigator.clipboard.writeText(command).then(() => {
-                const elem = document.querySelector('.install-command');
-                const originalText = elem.textContent;
-                elem.textContent = '✅ Copied to clipboard!';
-                elem.style.color = '#50fa7b';
+                const copied = document.getElementById('copied');
+                copied.classList.add('show');
                 setTimeout(() => {
-                    elem.textContent = originalText;
-                    elem.style.color = '#50fa7b';
+                    copied.classList.remove('show');
                 }, 2000);
             });
         }
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
     </script>
 </body>
 </html> 
